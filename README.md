@@ -35,14 +35,20 @@ In ```dot.s```, implement the dot product function, which calculates the dot pro
 dot(a, b) = \sum_{i=0}^{n-1} (a_i · b_i)
 ```
 The inputs for this operation and their corresponding registers are as follows:
-*	```a0``` : (int*) pointer to the first input array.
-*	```a1``` : (int*) pointer to the second input array.
+*	```a0``` : (int*) pointer to the first input array (M1).
+*	```a1``` : (int*) pointer to the second input array (M2).
 *	```a2``` : (int) number of elements to process.
 *	```a3``` : (int) skip distance in the first array.
 *	```a4``` : (int) skip distance in the second array.
 
 The return for this operation and its corresponding register is as follows:
 *	```a0``` : (int) resulting for product value.
+
+This operation implements a dot product calcuation function with strides. First, register ```t0``` is initialized to store the sum of the products. Then, the addresses of ```M1[i*stride]``` and ```M2[i*stride]``` are calculated, and the values at these addresses are loaded into registers ```t3``` and ```t5```, respectively.
+
+Subsequently, the operation checks whether either the value at ```M1[i*stride]``` or ```M2[i*stride]``` is negative. If either value is negative, multiplication is performed using subtraction. Otherwise, multiplication is performed using addition.
+
+Eventually, the sum register ```t0``` is updated by adding the result of the multiplication, and upon completion, the dot product value is returned.
 
 ### 1.4 Matrix Multiplication
 In ```matmul.s```, implement the matrix multiplication, where:
