@@ -27,7 +27,7 @@ In ```argmax.s```, implement the argmax funxtion, which returns the index of the
 The return for this operation and its corresponding register is as follows:
 * ```a0``` : (int) position of the first maximum element.
 
-The registers ```t0``` and ```t1``` are initialized with the maximum value of the input array and the counter ```i```, respectively. Using a for loop, the operation checks whether each element is greater than the current maximum value stored in register ```t0```. If an element is greater, the maximum value in ```t0``` and the index of the first occurrence of the maximum value in register ```a0``` are updated. The function returns the value in register a0 upon completion.
+The registers ```t0``` and ```t1``` are initialized with the maximum value of the input array and the counter ```i```, respectively. Using a for loop, the operation checks whether each element is greater than the current maximum value stored in register ```t0```. If an element is greater, the maximum value in ```t0``` and the index of the first occurrence of the maximum value in register ```a0``` are updated. The function returns the value in register ```a0``` upon completion.
 
 ### 1.3 Dot Product
 In ```dot.s```, implement the dot product function, which calculates the dot product of two given vectors. It defined as:
