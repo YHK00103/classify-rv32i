@@ -25,10 +25,37 @@
 relu:
     li t0, 1             
     blt a1, t0, error     
-    li t1, 0             
+    li t1, 0        
+	
+	# Begin prologue 
+	addi sp, sp, -12
+	sw ra, 0(sp)
+	sw s0, 4(sp)
+	sw s1, 8(sp)
+	# End prologue
 
-loop_start:
-    # TODO: Add your own implementation
+	addi s0, a0, 0							# s0 = matrix 
+	addi s1, a1, 0							# s1 = matrix size
+	addi t0, x0, 0							# t0 = i = 0
+
+for_loop:
+    bge t0, s1, relu_end					# if (i >= size), goto relu_end
+	slli t1, t0, 2								# t1 = offset = 4 * i
+	add t1, s0, t1							# t1 = base + offset = s0[i] address
+	lw t2, 0(t1)								# t2 = s0[i] value
+	addi t0, t0, 1								# t0 = i++
+	bge t2, x0, for_loop					# if (s0[i] >= 0), goto for_loop
+	sw x0, 0(t1)								# otherwise, s0[i] = 0
+    j for_loop
+	
+relu_end:
+	# Begin epilogue
+	lw ra, 0(sp)
+	lw s0, 4(sp)
+	lw s1, 8(sp)
+	addi sp, sp, 12
+	# End epilogue
+	ret
 
 error:
     li a0, 36          

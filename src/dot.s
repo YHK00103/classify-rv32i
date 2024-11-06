@@ -1,3 +1,4 @@
+
 .globl dot
 
 .text
@@ -31,12 +32,28 @@ dot:
     blt a3, t0, error_terminate   
     blt a4, t0, error_terminate  
 
-    li t0, 0            
-    li t1, 0         
+    li t0, 0                                    # t0 = sum = 0
+    li t1, 0                                    # t1 = i = 0
 
 loop_start:
     bge t1, a2, loop_end
     # TODO: Add your own implementation
+                        
+    mul t2, t1, a3                      # a0[i * stride]
+    slli t2, t2, 2
+    add t3, a0, t2
+    lw t3, 0(t3)                          # t3 = a0[i * stride]
+
+    mul t4, t1, a4                      # a1[i * stride]
+    slli t4, t4, 2
+    add t5, a1, t4
+    lw t5, 0(t5)                         # t5 =  a1[i * stride]
+
+    mul t6, t3, t5
+    add t0, t0, t6                      # t0 = sum += a0[i * stride] * a1[i * stride]
+
+    addi t1, t1, 1                      # t1 = i++
+    j loop_start
 
 loop_end:
     mv a0, t0

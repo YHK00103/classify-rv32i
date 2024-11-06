@@ -22,6 +22,10 @@ abs:
     bge t0, zero, done
 
     # TODO: Add your own implementation
+    srai t1, t0, 31
+    xor t2, t0, t1
+    sub t0, t2, t1
+    sw t0, 0(a0)
 
 done:
     # Epilogue

@@ -76,7 +76,15 @@ read_matrix:
 
     # mul s1, t1, t2   # s1 is number of elements
     # FIXME: Replace 'mul' with your own implementation
+    addi s1, x0, 0
+    addi t0, x0, 0
+mul_loop:
+    bge t0, t2, mul_loop_end
+    add s1, s1, t1
+    addi t0, t0, 1
+    j mul_loop
 
+mul_loop_end:
     slli t3, s1, 2
     sw t3, 24(sp)    # size in bytes
 
