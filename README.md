@@ -58,6 +58,8 @@ The inputs for this operation and their corresponding registers are as follows:
 *	```a5``` : (int) column count of the second matrix.
 *	```a6``` : (int*) point to the memory address of output matrix.
 
+The matrix multiplication operation relies on ㄍdot product. It iterates through the rows of the first matrix with the outer loop, and through the columns of the second matrix with the inner loop, calculating the dot product of the corresponding elements. The ```dot``` function is called internally to compute the dot product of two arrays, which serves as the fundamental operation in matrix multiplication.
+
 ## Part B: File Operations and Main
 
 ### 2.1 Read Matrix
