@@ -51,7 +51,7 @@ This operation implements a dot product calcuation function with strides. First,
 
 Subsequently, the operation checks whether either the value at ```M1[i*stride]``` or ```M2[i*stride]``` is negative. If either value is negative, multiplication is performed using subtraction. Otherwise, multiplication is performed using addition.
 
-Eventually, the sum register ```t0``` is updated by adding the result of the multiplication, and upon completion, the dot product value is returned.
+Eventually, the sum register ```t0``` is updated by adding the result of the multiplication. Upon completion, the dot product value is returned.
 
 ### 1.4 Matrix Multiplication
 In ```matmul.s```, implement the matrix multiplication, where:
@@ -151,11 +151,38 @@ Next, the pointer to the filename string is loaded into register ```a0```, while
 
 **2.3.2 Matrix Multiplication**
 
+The purpose of this section is to calculate the following formula:
+
+```math
+HiddenLayer = matmul(m0, input)
+```
+To avoid using M extension instructions, the operation implements multiplication using repeated addition to calculate the total number of elements in the ```hidden layer``` matrix. Then, the necessary values are loaded into the corresponding registers, and the operation performs matrix multiplication via the ```matmul``` function to obtain the ```hidden layer``` matrix. 
+
 **2.3.3 ReLU Activation**
+
+In this section, the implementation is as follows:
+
+```math
+HiddenLayer = relu(HiddenLayer)
+```
+First, the operation calculates the length of the ```hidden layer``` array using repeated addition. Then, the pointer to the ```hidden layer``` array and its length are loaded into registers ```a0``` and ```a1```, respectively. Through the ```relu``` function, an array without any negative values is returned.
 
 **2.3.4 Second Matrix Multiplication**
 
+In this section, the implementation is as follows:
+
+```math
+scores = matmul(m1, HiddenLayer)
+```
+The operation is the same as above. It first calculates the total number of elements in the ```scores``` matrix. Subsequently, the corresponding registers are set. Finally, the matrix multiplication result of ```m1``` and the ```hidden layer``` is calculated via the ```matmul``` function.
+
 **2.3.5 Classification**
+
+The goal of this section is to find out the classification of the input matrix. The formula of this operation is as follows:
+```math
+classification = argmax(scores)
+```
+The operation calculates the length of the ```scores``` array using repeated addition. Then, the pointer to the ```scores``` array and its length are loaded into registers ```a0``` and ```a1```, respectively. The ```argmax``` function is called to find the first maximum element in the ```scores``` array, which represents the classification of the input matrix.
 
 ## 3. Result
 The following results were tested using the Venus simulator.
