@@ -111,7 +111,7 @@ test_classify_1_silent (__main__.TestClassify.test_classify_1_silent) ... ok
 test_classify_2_print (__main__.TestClassify.test_classify_2_print) ... ok
 test_classify_3_print (__main__.TestClassify.test_classify_3_print) ... ok
 test_classify_fail_malloc (__main__.TestClassify.test_classify_fail_malloc) ... ok
-test_classify_not_enough_args (__main__.TestClassify.test_classify_not_enough_args) .. ok
+test_classify_not_enough_args (__main__.TestClassify.test_classify_not_enough_args) ... ok
 test_dot_length_1 (__main__.TestDot.test_dot_length_1) ... ok
 test_dot_length_error (__main__.TestDot.test_dot_length_error) ... ok
 test_dot_length_error2 (__main__.TestDot.test_dot_length_error2) ... ok
@@ -121,13 +121,13 @@ test_dot_stride_error1 (__main__.TestDot.test_dot_stride_error1) ... ok
 test_dot_stride_error2 (__main__.TestDot.test_dot_stride_error2) ... ok
 test_matmul_incorrect_check (__main__.TestMatmul.test_matmul_incorrect_check) ... ok
 test_matmul_length_1 (__main__.TestMatmul.test_matmul_length_1) ... ok
-test_matmul_negative_dim_m0_x (__main__.TestMatmul.test_matmul_negative_dim_m0_x) ... k
-test_matmul_negative_dim_m0_y (__main__.TestMatmul.test_matmul_negative_dim_m0_y) ... k
-test_matmul_negative_dim_m1_x (__main__.TestMatmul.test_matmul_negative_dim_m1_x) ... k
-test_matmul_negative_dim_m1_y (__main__.TestMatmul.test_matmul_negative_dim_m1_y) ... k
+test_matmul_negative_dim_m0_x (__main__.TestMatmul.test_matmul_negative_dim_m0_x) ... ok
+test_matmul_negative_dim_m0_y (__main__.TestMatmul.test_matmul_negative_dim_m0_y) ... ok
+test_matmul_negative_dim_m1_x (__main__.TestMatmul.test_matmul_negative_dim_m1_x) ... ok
+test_matmul_negative_dim_m1_y (__main__.TestMatmul.test_matmul_negative_dim_m1_y) ... ok
 test_matmul_nonsquare_1 (__main__.TestMatmul.test_matmul_nonsquare_1) ... ok
 test_matmul_nonsquare_2 (__main__.TestMatmul.test_matmul_nonsquare_2) ... ok
-test_matmul_nonsquare_outer_dims (__main__.TestMatmul.test_matmul_nonsquare_outer_dims ... ok
+test_matmul_nonsquare_outer_dims (__main__.TestMatmul.test_matmul_nonsquare_outer_dims) ... ok
 test_matmul_square (__main__.TestMatmul.test_matmul_square) ... ok
 test_matmul_unmatched_dims (__main__.TestMatmul.test_matmul_unmatched_dims) ... ok
 test_matmul_zero_dim_m0 (__main__.TestMatmul.test_matmul_zero_dim_m0) ... ok
