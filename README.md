@@ -8,6 +8,7 @@ The project is organized into two main components:mathematical functions and fil
 
 ### 1.1 ReLU
 In ```relu.s```, each element of the input array will be processed by setting negative values to 0. The operation is defined as:
+
 ```math
 ReLU(a)=max(a,0)
 ```
@@ -31,10 +32,12 @@ The registers ```t0``` and ```t1``` are initialized with the maximum value of th
 
 ### 1.3 Dot Product
 In ```dot.s```, implement the dot product function, which calculates the dot product of two given vectors. It defined as:
+
 ```math
 dot(a, b) = \sum_{i=0}^{n-1} (a_i · b_i)
 ```
 The inputs for this operation and their corresponding registers are as follows:
+
 *	```a0``` : (int*) pointer to the first input array (M1).
 *	```a1``` : (int*) pointer to the second input array (M2).
 *	```a2``` : (int) number of elements to process.
@@ -52,10 +55,12 @@ Eventually, the sum register ```t0``` is updated by adding the result of the mul
 
 ### 1.4 Matrix Multiplication
 In ```matmul.s```, implement the matrix multiplication, where:
+
 ```math
 C[i][j]=dot(A[i],B[:j])
 ```
 The inputs for this operation and their corresponding registers are as follows:
+
 *	```a0``` : (int*) pointer to the memory address of the first matrix.
 *	```a1``` : (int) row count of the first matrix.
 *	```a2``` : (int) column count of the second matrix.
@@ -70,6 +75,7 @@ The matrix multiplication operation relies on the dot product. It iterates throu
 
 ### 2.1 Read Matrix
 In ```read_matrix.s```, implement the function to read a binary matrix from a file and load it into memory. The inputs for this operation and their corresponding registers are as follows:
+
 * ```a0``` : (char*) pointer to filename string.
 * ```a1``` : (int*) address to write row count.
 * ```a2``` : (int*) address to write column count.
@@ -99,15 +105,35 @@ Using the ```fread``` function, the operation checks if the input matrix is load
 
 ### 2.2 Write Matrix
 In ```write_matrix.s```, implement the function to write a matrix to a binary file. The function takes the following inputs with corresponding registers:
+
 * ```a0``` : (char*) pointer to a string representing the filename.
 * ```a1``` : (int*) pointer to the starting memory address of the matrix.
 * ```a2``` : (int) number of rows in the matrix.
 * ```a3``` : (int) number of columns in the matrix.
 
+The ```write_matrix``` function can be divided into three sections: opening the file, writing the row count and column count of the result matrix, and writing the result matrix. The details of these operations are as follows:
 
+**2.2.1 Open File**
+
+The file path is loaded into register ```a0```, and the register ```a1``` is set to ```1```, which represents write-only permission for accessing the file. The ```fopen``` function is then called. After this operation, the function will return a file descriptor in register ```a0```. If the value in register ```a0``` is ```-1```, it indicates that an error occurred while attempting to open the file with ```fopen```. Otherwise, the file has opened successfully.
+
+**2.2.2 Write the Row Count and Column Count of the Result Matrix**
+
+The file descriptor is loaded into register ```a0```, and the buffer storing the row count and column count is loaded into register ```a1```. Registers ```a2``` and ```a3``` are set to ```2``` and ```4``` respectively, indicating that two elements (row count and column count) are written to the file with each element being 4 bytes. 
+
+Using the ```fwrite``` function, the operation checks if the row count and column count are written to the file successfully by comparing the return value in register ```a0``` with the value stored in register ```t0```. If the row count and column count are not written to the file successfully, the program exits with the ```fwrite_error```. Otherwise, the program proceeds to write the result matrix to the file.
+
+**2.2.3 Write the Result Matrix**
+
+To calculate the total number of elements and avoid using M extension instructions, the multiplication is performed through repeated addition. The resulting value of calculation is stored in register ```a2```, representing the number of elements the operation will write to the file.
+
+The same operation as writing the row count and column count is performed: the file descriptor, the buffer storing the result matrix, and the size of each element are loaded into registers ```a0```, ```a1```, and ```a3```, respectively.
+
+By using the ```fwrite``` function, the operation checks if the result matrix is written to the file successfully. If the matrix is written successfully, the file is closed with the ```fclose``` function. Otherwise, the program exits with the ```fwrite_error```.
 
 ### 2.3 Classification
 In ```classify.s```, the function binds all components necessary to classify an input using two weight matrices (```m0``` and ```m1```) and the specified operations.  The function takes in three parameters with corresponding registers as follows:
+
 * ```a0``` : (int) argument count
 * ```a1``` : (char**) argument vector
 * ```a2``` : (int) silent mode flag
