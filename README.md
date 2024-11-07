@@ -141,7 +141,17 @@ In ```classify.s```, the function binds all components necessary to classify an 
 The classification result of this operation is returned in the following register:
 * ```a0``` : (int) classification result
 
-  
+In this section, the operation can be divided into several parts, including reading the necessary matrices (```m0```, ```m1```, and the input matrix), matrix multiplication, ReLU activation, second matrix multiplication, and classification. The explanation of each operation is as follows:
+
+**2.3.1 Read ```m0```, ```m1```, and the Input Matrix**
+
+**2.3.2 Matrix Multiplication**
+
+**2.3.3 ReLU Activation**
+
+**2.3.4 Second Matrix Multiplication**
+
+**2.3.5 Classification**
 
 ## 3. Result
 The following results were tested using the Venus simulator.
