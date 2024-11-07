@@ -44,7 +44,7 @@ The inputs for this operation and their corresponding registers are as follows:
 The return for this operation and its corresponding register is as follows:
 *	```a0``` : (int) resulting for product value.
 
-This operation implements a dot product calcuation function with strides. First, register ```t0``` is initialized to store the sum of the products. Then, the addresses of ```M1[i*stride]``` and ```M2[i*stride]``` are calculated, and the values at these addresses are loaded into registers ```t3``` and ```t5```, respectively.
+This operation implements a dot product calcuation function with strides. First, register ```t0``` is initialized to store the sum of the products. Then, the memory addresses of ```M1[i*stride]``` and ```M2[i*stride]``` are calculated, and the values at these addresses are loaded into registers ```t3``` and ```t5```, respectively.
 
 Subsequently, the operation checks whether either the value at ```M1[i*stride]``` or ```M2[i*stride]``` is negative. If either value is negative, multiplication is performed using subtraction. Otherwise, multiplication is performed using addition.
 
@@ -77,7 +77,25 @@ In ```read_matrix.s```, implement the function to read a binary matrix from a fi
 The function will return the following value in the specified register:
 * ```a0``` : (int*) pointer to base address of loaded matrix.
 
+The ```read_matrix``` function can be separate into three main parts, including open file, read row count and column count of the input matrix, and load input matrix. The details of each operation are as follows:
 
+**2.1.1 Open File**
+
+The file path is provided in register ```a0```, and register ```a1``` is set to ```0```, indicating read-only permission for accessing the file. The ```fopen``` function is then called. After this operation, the function will return a file descriptor in register ```a0```. If the value in register ```a0``` is ```-1```, it indicates that an error occurred while attempting to open the file with ```fopen```. Otherwise, the file has opened successfully.
+
+**2.1.2 Read Row Count and Column Count of the Input Matrix**
+
+The file descriptor is loaded into register ```a0```, the pointer to the buffer where the read bytes will be stored is loaded into register ```a1```, and the number of bytes to be read is loaded into register ```a2```. This operation reads 8 bytes, corresponding to the row count and column count of the input matrix. 
+
+After calling the ```fread``` function, the operation checks whether the row and column count values were read sucessfully by comparing return value in register ```a0``` with register ```t0```. If the values were read sucessfully, the operation loads the two values from buffer into registers ```t1``` and ```t2```.
+
+**2.1.3 Load Input Matrix**
+
+In this section, the operation calculates the number of elements in the input matrix by multiplying the row count and column count. To avoid using M extension instruction for multiplication, the calculation is performed through repeated addition instead.
+
+After calculating the number of elements in the input matrix, the operation calls the  ```malloc``` function to allocate memory for loading the input matrix. Then, the necessary registers are set up: file descriptor, the buffer for storing the read data, and the number of bytes to read. 
+
+Using the ```fread``` function, the operation checks if the input matrix is loaded into the buffer successfully. If the matrix is read successfully, the file is closed with the ```fclose``` function. Otherwise, the program exits with the ```fread_error```.
 
 ### 2.2 Write Matrix
 In ```write_matrix.s```, implement the function to write a matrix to a binary file. The function takes the following inputs with corresponding registers:
@@ -85,6 +103,8 @@ In ```write_matrix.s```, implement the function to write a matrix to a binary fi
 * ```a1``` : (int*) pointer to the starting memory address of the matrix.
 * ```a2``` : (int) number of rows in the matrix.
 * ```a3``` : (int) number of columns in the matrix.
+
+
 
 ### 2.3 Classification
 In ```classify.s```, the function binds all components necessary to classify an input using two weight matrices (```m0``` and ```m1```) and the specified operations.  The function takes in three parameters with corresponding registers as follows:
