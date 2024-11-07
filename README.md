@@ -69,10 +69,33 @@ The matrix multiplication operation relies on the dot product. It iterates throu
 ## Part B: File Operations and Main
 
 ### 2.1 Read Matrix
+In ```read_matrix.s```, implement the function to read a binary matrix from a file and load it into memory. The inputs for this operation and their corresponding registers are as follows:
+* ```a0``` : (char*) pointer to filename string.
+* ```a1``` : (int*) address to write row count.
+* ```a2``` : (int*) address to write column count.
+
+The function will return the following value in the specified register:
+* ```a0``` : (int*) pointer to base address of loaded matrix.
+
+
 
 ### 2.2 Write Matrix
+In ```write_matrix.s```, implement the function to write a matrix to a binary file. The function takes the following inputs with corresponding registers:
+* ```a0``` : (char*) pointer to a string representing the filename.
+* ```a1``` : (int*) pointer to the starting memory address of the matrix.
+* ```a2``` : (int) number of rows in the matrix.
+* ```a3``` : (int) number of columns in the matrix.
 
 ### 2.3 Classification
+In ```classify.s```, the function binds all components necessary to classify an input using two weight matrices (```m0``` and ```m1```) and the specified operations.  The function takes in three parameters with corresponding registers as follows:
+* ```a0``` : (int) argument count
+* ```a1``` : (char**) argument vector
+* ```a2``` : (int) silent mode flag
+
+The classification result of this operation is returned in the following register:
+* ```a0``` : (int) classification result
+
+  
 
 ## Result
 The following results were tested using the Venus simulator.
