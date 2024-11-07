@@ -66,7 +66,7 @@ The inputs for this operation and their corresponding registers are as follows:
 
 The matrix multiplication operation relies on the dot product. It iterates through the rows of the first matrix with the outer loop, and through the columns of the second matrix with the inner loop, calculating the dot product of the corresponding elements. The ```dot``` function is called internally to compute the dot product of two arrays, which serves as the fundamental operation in matrix multiplication.
 
-## Part B: File Operations and Main
+## 2. Part B: File Operations and Main
 
 ### 2.1 Read Matrix
 In ```read_matrix.s```, implement the function to read a binary matrix from a file and load it into memory. The inputs for this operation and their corresponding registers are as follows:
@@ -97,7 +97,7 @@ The classification result of this operation is returned in the following registe
 
   
 
-## Result
+## 3. Result
 The following results were tested using the Venus simulator.
 ```
 test_abs_minus_one (__main__.TestAbs.test_abs_minus_one) ... ok
