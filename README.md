@@ -145,6 +145,10 @@ In this section, the operation can be divided into several parts, including read
 
 **2.3.1 Read ```m0```, ```m1```, and the Input Matrix**
 
+In order to store the row and column counts of each matrix, the operation allocates 4 bytes of memory for each value using the ```malloc``` function. The return value in register ```a0``` represents the allocated memory address for each value, which is then moved from register ```a0``` to a series of ```s``` registers (```s3``` to```s8```) for further use.
+
+Next, the pointer to the filename string is loaded into register ```a0```, while the addresses for storing the row and column counts are loaded into registers ```a1``` and ```a2```, respectively. Through the ```read_matrix``` function, the memory address of each matrix is stored in register ```a0```. The operation loads these addresses into registers ```s0```, ```s1```, and ```s2```, indicating the memory addresses of ```m0```, ```m1```, and the input matrix.
+
 **2.3.2 Matrix Multiplication**
 
 **2.3.3 ReLU Activation**
